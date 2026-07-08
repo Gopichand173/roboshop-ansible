@@ -18,3 +18,8 @@
       ansible.builtin.dnf:
         name: nginx
         state: latest
+    - name: copy nginx
+      ansible.builtin.copy:
+        src: nginx.conf
+        dest: /etc/nginx/nginx.conf
+    
