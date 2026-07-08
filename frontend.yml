@@ -12,6 +12,7 @@
 
 - name: frontend Playbook
   hosts: all
+  become: true
   tasks: 
     - name: Insall Nginx
       ansible.builtin.dnf:
