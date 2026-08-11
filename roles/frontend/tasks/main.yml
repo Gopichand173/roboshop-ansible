@@ -34,7 +34,7 @@
 - name: Create nginx http directory
   ansible.builtin.file:
     path: /usr/share/nginx/html/
-    state: Directory
+    state: directory
 
 - name: Download and extract Frontend artifact
   ansible.builtin.unarchive:
@@ -45,7 +45,7 @@
 - name: start nginx
   ansible.builtin.service:
     name: nginx
-    state: restart
+    state: restarted
     enabled: yes
 
 
