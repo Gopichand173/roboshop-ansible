@@ -1,0 +1,29 @@
+#cp mongo.repo /etc/yum.repos.d/mongo.repo
+#dnf install mongodb-org -y
+#sed -i -e 's|127.0.0.1|0.0.0.0|' /etc/mongod.conf
+#systemctl enable mongod
+#systemctl start mongod
+#systemctl restart mongod
+
+- name: Copy mogodb repo file
+  ansible.builtin.copy:
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: install mongobd latest version
+  ansible.builtin.dnf:
+    name: mongodb-org
+    state: latest
+
+- name: Update listen address from 127.0.0.1 to 0.0.0.0
+  ansible.builtin.replace:
+    path: /etc/mongod.conf
+    regexp: '127.0.0.1'
+    replace: '0.0.0.0'
+
+- name: start nginx
+  ansible.builtin.service:
+    name: mongod
+    state: restarted
+    enabled: yes
+
