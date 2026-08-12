@@ -5,15 +5,15 @@
 #systemctl start mongod
 #systemctl restart mongod
 
-- name: Copy mogodb repo file
+- name: Copy MongoDB repository file
   ansible.builtin.copy:
     src: mongo.repo
     dest: /etc/yum.repos.d/mongo.repo
 
-- name: install mongobd latest version
+- name: Install MongoDB server package
   ansible.builtin.dnf:
     name: mongodb-org
-    state: latest
+    state: present
 
 - name: Update listen address from 127.0.0.1 to 0.0.0.0
   ansible.builtin.replace:
@@ -21,8 +21,8 @@
     regexp: '127.0.0.1'
     replace: '0.0.0.0'
 
-- name: start nginx
-  ansible.builtin.service:
+- name: Restart and enable MongoDB service
+  ansible.builtin.systemd_service:
     name: mongod
     state: restarted
     enabled: true
