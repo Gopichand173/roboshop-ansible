@@ -15,7 +15,7 @@
     name: nodejs
     state: latest
 
-- name: install nodejs latest version
+- name: import app prereq
   ansible.builtin.import_role:
     name: common
     tasks_from: app-prereq
@@ -24,3 +24,7 @@
   community.general.npm:
     path: /app
 
+- name: import systemd
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: systemd
