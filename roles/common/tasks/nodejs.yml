@@ -1,0 +1,26 @@
+#dnf module disable nodejs -y
+#dnf module enable nodejs:20 -y
+#dnf install nodejs -y
+#APP_PREREQ
+#npm install
+
+- name: disable nodejs
+  ansible.builtin.command: dnf module disable nodejs -y
+
+- name: enable nodejs
+  ansible.builtin.command: dnf module enable nodejs:20 -y
+
+- name: install nodejs latest version
+  ansible.builtin.dnf:
+    name: nodejs
+    state: latest
+
+- name: install nodejs latest version
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: app-prereq
+
+- name: Install Node.js dependencies
+  community.general.npm:
+    path: /app
+

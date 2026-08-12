@@ -1,0 +1,34 @@
+#cp ${component}.service /etc/systemd/system/${component}.service || exit
+#useradd roboshop
+#rm -rf /app
+#mkdir /app
+#curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}-v3.zip
+#cd /app || exit
+#unzip /tmp/${component}.zip
+#cd /app || exit
+
+- name: Copy component service file
+  ansible.builtin.copy:
+    src: ""{{component}}.service"
+    dest: /etc/systemd/system/{{component}}.service
+
+- name: add roboshop user
+  ansible.builtin.user:
+    name: roboshop
+    state: present
+
+- name: Remove directory
+  ansible.builtin.file:
+    path: /app
+    state: absent
+
+- name: add directory
+  ansible.builtin.file:
+    path: /app
+    state: directory
+
+- name: download and unzip
+  ansible.builtin.unarchive:
+    src: https://roboshop-artifacts.s3.amazonaws.com/{{component}}-v3.zip
+    dest: /app
+    remote_src: yes
