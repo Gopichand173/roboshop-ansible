@@ -1,18 +1,9 @@
-## 1. Setup NodeJS
-#source common.sh
-#component=catalogue
-#NODEJS
-#
-#dnf install mongodb-mongosh -y
-#mongosh --host mongodb-dev.gdevops72.com </app/db/master-data.js
-
-
-- name: import nodejs
+- name: Import Node.js installation tasks
   ansible.builtin.import_role:
     name: common
     tasks_from: nodejs
 
-- name: Copy mongodb repo file
+- name: Copy MongoDB YUM repository file
   ansible.builtin.copy:
     src: mongo.repo
     dest: /etc/yum.repos.d/mongo.repo
@@ -22,6 +13,10 @@
     name: mongodb-mongosh
     state: present
 
-- name: load data
+- name: Load Master Data into MongoDB
   ansible.builtin.shell: mongosh --host mongodb-dev.gdevops72.com </app/db/master-data.js
 
+- name: Import SystemD service startup
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: systemd
