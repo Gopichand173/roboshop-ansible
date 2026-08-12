@@ -3,9 +3,9 @@
     src: "{{ component }}.service"
     dest: "/etc/systemd/system/{{ component }}.service"
 
-- name: start nginx
+- name: start catalogue
   ansible.builtin.service:
     state: restarted
-    enabled: yes
-    demon_reload: true
+    enabled: true
+    daemon_reload: true
     name: "{{ component }}"
