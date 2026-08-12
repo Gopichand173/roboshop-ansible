@@ -17,6 +17,11 @@
     src: mongo.repo
     dest: /etc/yum.repos.d/mongo.repo
 
+- name: Install MongoDB Shell client (mongosh)
+  ansible.builtin.dnf:
+    name: mongodb-mongosh
+    state: present
+
 - name: load data
   ansible.builtin.shell: mongosh --host mongodb-dev.gdevops72.com </app/db/master-data.js
 
