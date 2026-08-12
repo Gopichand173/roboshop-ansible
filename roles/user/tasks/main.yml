@@ -1,0 +1,25 @@
+- name: Copy user service
+  ansible.builtin.copy:
+    src: user.service
+    dest: /etc/systemd/system/user.service
+
+- name: import nodejs
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: nodejs
+
+- name: import nodejs
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: app-prereq
+
+- name: Install Node.js dependencies
+  community.general.npm:
+    path: /app
+    cmd: npm install
+
+- name: import systemd
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: systemd
+
