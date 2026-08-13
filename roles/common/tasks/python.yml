@@ -1,0 +1,22 @@
+- name: Install python
+  ansible.builtin.dnf:
+    name:
+      - python3
+      - gcc
+      - python3-devel
+    state: installed
+
+- name: Import App Prerequisites
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: app-prereq
+
+- name: Install Python dependencies
+  ansible.builtin.shell: pip3 install -r requirements.txt
+  args:
+    chdir: /app
+
+- name: Include systemd startup tasks
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: systemd
