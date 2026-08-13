@@ -1,0 +1,19 @@
+- name: Install maven
+  ansible.builtin.dnf:
+    name: maven
+    state: installed
+
+- name: Import App Prerequisites
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: app-prereq
+
+- name: Downland dependencies
+  ansible.builtin.shell: mv target/{{component}}-1.0.jar {{component}}.jar
+  args:
+    chdir: /app
+
+- name: Include systemd startup tasks
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: systemd

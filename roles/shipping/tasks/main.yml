@@ -1,0 +1,19 @@
+- name: Import maven installation tasks
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: maven
+
+- name: install mysql
+  ansible.builtin.dnf:
+    name: mysql-server
+    state: installed
+
+- name: Load Schema
+  ansible.builtin.shell: mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/db/schema.sql
+
+- name: Load Schema
+  ansible.builtin.shell: mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/db/app-user.sql
+
+- name: Load Schema
+  ansible.builtin.shell: mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/db/master-data.sql
+

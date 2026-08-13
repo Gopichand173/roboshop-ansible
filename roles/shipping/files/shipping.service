@@ -1,0 +1,13 @@
+[Unit]
+Description=Shipping Service
+
+[Service]
+User=roboshop
+Environment=CART_ENDPOINT=cart-dev.gdevops72.com:8080
+Environment=DB_HOST=mysql-dev.gdevops72.com
+Environment=RABBITMQ_HOST=rabbitmq-dev.gdevops72.com
+ExecStart=/bin/java -jar /app/shipping.jar
+SyslogIdentifier=shipping
+
+[Install]
+WantedBy=multi-user.target
