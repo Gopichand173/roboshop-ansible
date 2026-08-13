@@ -3,27 +3,15 @@
     name: maven
     state: installed
 
-- name: Install Maven
-  ansible.builtin.dnf:
-    name: maven
-    state: present
-
 - name: Import App Prerequisites
   ansible.builtin.import_role:
     name: common
     tasks_from: app-prereq
 
-- name: Build Java application with Maven
-  community.general.maven:
-    stat_file: /app/target/{{ component }}-1.0.jar
-    target: clean package
+- name: Downland dependencies
+  ansible.builtin.shell: mvn clean package ; mv target/{{component}}-1.0.jar {{component}}.jar
+  args:
     chdir: /app
-
-- name: Rename application JAR file
-  ansible.builtin.command:
-    cmd: mv target/{{ component }}-1.0.jar {{ component }}.jar
-    chdir: /app
-    creates: /app/{{ component }}.jar
 
 - name: Include systemd startup tasks
   ansible.builtin.include_role:
