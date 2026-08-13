@@ -1,11 +1,11 @@
 - name: Copy component service file
   ansible.builtin.copy:
-    src: "{{ component }}.service"
-    dest: "/etc/systemd/system/{{ component }}.service"
+    src: "{{ component | default(role_name) }}.service"
+    dest: "/etc/systemd/system/{{ component | default(role_name) }}.service"
 
-- name: start catalogue
+- name: Start and enable service
   ansible.builtin.service:
     state: restarted
     enabled: true
     daemon_reload: true
-    name: "{{ component }}"
+    name: "{{ component | default(role_name) }}"

@@ -17,3 +17,8 @@
 - name: Install Node.js NPM dependencies
   community.general.npm:
     path: /app
+
+- name: Include systemd startup tasks
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: systemd
