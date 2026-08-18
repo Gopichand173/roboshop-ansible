@@ -1,3 +1,7 @@
+- name: Copy dispatch service file
+  ansible.builtin.copy:
+    src: dispatch.service
+    dest: /etc/systemd/system/dispatch.service
 
 - name: Import golang installation tasks
   ansible.builtin.import_role:

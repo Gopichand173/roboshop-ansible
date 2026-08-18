@@ -3,11 +3,6 @@
     name: golang
     state: present
 
-- name: Copy MongoDB YUM repository file
-  ansible.builtin.copy:
-    src: mongo.repo
-    dest: /etc/yum.repos.d/mongo.repo
-
 - name: Import Application Prerequisites
   ansible.builtin.import_role:
     name: common
