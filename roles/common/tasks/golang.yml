@@ -1,0 +1,31 @@
+- name: Install Golang compiler
+  ansible.builtin.dnf:
+    name: golang
+    state: present
+
+- name: Import Application Prerequisites
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: app-prereq
+
+- name: Initialize Go module
+  ansible.builtin.command:
+    cmd: go mod init dispatch
+    chdir: /app
+    creates: /app/go.mod
+
+- name: Download Go dependencies
+  ansible.builtin.command:
+    cmd: go get
+    chdir: /app
+
+- name: Build Go application binary
+  ansible.builtin.command:
+    cmd: go build
+    chdir: /app
+    creates: /app/dispatch
+
+- name: Include systemd startup tasks
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: systemd
