@@ -1,7 +1,7 @@
 
-- name: Import Node.js installation tasks
+- name: Import golang installation tasks
   ansible.builtin.import_role:
     name: common
-    tasks_from: nodejs
+    tasks_from: golang
 
 
