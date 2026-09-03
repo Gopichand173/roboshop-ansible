@@ -15,6 +15,10 @@
 
 - name: Load Master Data into MongoDB
   ansible.builtin.shell: mongosh --host mongodb-dev.gdevops72.com </app/db/master-data.js
+  register: command_result
+  until: command_result.rc == 0
+  retries: 5
+  delay: 10
 
 - name: Import SystemD service startup
   ansible.builtin.import_role:
