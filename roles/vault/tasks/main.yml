@@ -6,6 +6,5 @@
 - name: Install vault
   ansible.builtin.dnf:
     name: vault
-    status: installed
-
+    state: present
 
