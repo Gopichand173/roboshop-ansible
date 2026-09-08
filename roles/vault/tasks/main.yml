@@ -8,3 +8,15 @@
     name: vault
     state: present
 
+- name: Copy vault congig
+  ansible.builtin.copy:
+    src: vault.hcl
+    dest: /etc/vault.d/vault.hcl
+
+- name: Start and enable service
+  ansible.builtin.service:
+    name: vault
+    state: restarted
+    enabled: true
+
+
