@@ -8,7 +8,7 @@
     name: vault
     state: present
 
-- name: Copy vault congig
+- name: Copy vault config
   ansible.builtin.copy:
     src: vault.hcl
     dest: /etc/vault.d/vault.hcl
