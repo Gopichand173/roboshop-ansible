@@ -1,5 +1,5 @@
 - name: Copy component service file
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: "{{ component | default(role_name) }}.service"
     dest: "/etc/systemd/system/{{ component | default(role_name) }}.service"
 
