@@ -6,7 +6,7 @@
 #systemctl restart mongod
 
 - name: Copy MongoDB repository file
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: mongo.repo
     dest: /etc/yum.repos.d/mongo.repo
 
