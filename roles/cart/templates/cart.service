@@ -2,7 +2,7 @@
 Description = Cart Service
 [Service]
 User=roboshop
-Environment=REDIS_HOST="{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{env}}/data/cart:REDIS_HOST' token={{ token }}  url='http://vault-internal.gdevops72.com:8200/') }}"                          #redis-dev.gdevops72.com
+Environment=REDIS_HOST="{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{env}}/data/cart:REDIS_HOST' token={{ token }}  url='http://vault-internal.gdevops72.com:8200/') }}"
 Environment=CATALOGUE_HOST="{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{env}}/data/cart:CATALOGUE_HOST' token={{ token }}  url='http://vault-internal.gdevops72.com:8200/') }}"
 Environment=CATALOGUE_PORT="{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{env}}/data/cart:CATALOGUE_PORT' token={{ token }}  url='http://vault-internal.gdevops72.com:8200/') }}"
 ExecStart=/bin/node /app/server.js
