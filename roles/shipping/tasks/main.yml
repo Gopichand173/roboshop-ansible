@@ -9,11 +9,9 @@
     state: installed
 
 - name: Load Schema
-  ansible.builtin.shell: mysql -h mysql-dev.gdevops72.com -uroot -pRoboShop@1 < /app/db/schema.sql
-
-- name: Create app user
-  ansible.builtin.shell: mysql -h mysql-dev.gdevops72.com -uroot -pRoboShop@1 < /app/db/app-user.sql
-
-- name: Load Master Data
-  ansible.builtin.shell: mysql -h mysql-dev.gdevops72.com -uroot -pRoboShop@1 < /app/db/master-data.sql
+  ansible.builtin.shell: mysql -h mysql-dev.gdevops72.com -u{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-' ~ env ~ '/data/shipping:DB_USER', token=token, url='http://vault-internal.gdevops72.com:8200/') }} -p{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-' ~ env ~ '/data/shipping:DB_PASS', token=token, url='http://vault-internal.gdevops72.com:8200/') }} < /app/db/{{ item }}.sql
+  loop:
+    - schema
+    - app-user
+    - data
 
