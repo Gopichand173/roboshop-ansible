@@ -2,7 +2,7 @@
 Description=Shipping Service
 
 [Service]
-User=roboshop
+User={{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-' ~ env ~ '/data/shipping:User', token=token, url='http://vault-internal.gdevops72.com:8200/') }}
 Environment=CART_ENDPOINT={{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-' ~ env ~ '/data/shipping:CART_ENDPOINT', token=token, url='http://vault-internal.gdevops72.com:8200/') }}
 Environment=DB_HOST={{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-' ~ env ~ '/data/shipping:DB_HOST', token=token, url='http://vault-internal.gdevops72.com:8200/') }}
 ExecStart=/bin/java -jar /app/shipping.jar
