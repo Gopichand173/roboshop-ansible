@@ -19,4 +19,3 @@ SyslogIdentifier=payment
 [Install]
 WantedBy=multi-user.target
 
-{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-' ~ env ~ '/data/payment:CART_ENDPOINT', token=token, url='http://vault-internal.gdevops72.com:8200/') }}
