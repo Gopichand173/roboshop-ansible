@@ -1,0 +1,12 @@
+[Unit]
+Description = Dispatch Service
+[Service]
+User=roboshop
+Environment=AMQP_HOST={{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-' ~ env ~ '/data/dispatch:AMQP_HOST', token=token, url='http://vault-internal.gdevops72.com:8200/') }}
+Environment=AMQP_USER={{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-' ~ env ~ '/data/dispatch:AMQP_USER', token=token, url='http://vault-internal.gdevops72.com:8200/') }}
+Environment=AMQP_PASS={{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-' ~ env ~ '/data/dispatch:AMQP_PASS', token=token, url='http://vault-internal.gdevops72.com:8200/') }}
+ExecStart=/app/dispatch
+SyslogIdentifier=dispatch
+
+[Install]
+WantedBy=multi-user.target
