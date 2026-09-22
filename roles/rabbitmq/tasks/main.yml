@@ -15,6 +15,6 @@
     enabled: yes
 
 - name: add default username
-  ansible.builtin.shell: rabbitmqctl add_user {{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-' ~ env ~ '/data/rabbitmq:APP_USER', token=token, url='http://vault-internal.gdevops72.com:8200/') }} {{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-' ~ env ~ '/data/rabbitmq:APP_PASSW', token=token, url='http://vault-internal.gdevops72.com:8200/') }} ; rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+  ansible.builtin.shell: rabbitmqctl add_user {{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-' ~ env ~ '/data/rabbitmq:APP_USER', token=token, url='http://vault-internal.gdevops72.com:8200/') }} {{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-' ~ env ~ '/data/rabbitmq:APP_PASS', token=token, url='http://vault-internal.gdevops72.com:8200/') }} ; rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
 
 
